@@ -132,37 +132,15 @@ and it will receive this back:
 ```
 Where 3 is the device ID assigned by the server sequentally. The device should hold onto this ID.
 
-If the device already registered itself, it should send the following:
-
-```json
-{
-  "message": "id",
-  "params": [ "3" ]
-}
-```
-
-and it will receive this back:
-
-```json
-{
-  "message": "id",
-  "params": [ "3" ]
-}
-```
-
-Where 3 is the device's own ID again.
-
-After the handshake, the client should keep the connection alive, send events to the server through the established connection and also listen to commands from the server. The server will be polling for incoming messages every 1000 milliseconds.
-
 #### Events
 
 Use these messages to push events to the server:
-
 
 Successful facial recognition door opening by user:
 
 ```json
 {
+	"deviceId": 3,
   "message": "event",
   "params": [ "DOOR_OPEN_SUCCESS", "Miikka opened the door", "" ]
 }
@@ -174,46 +152,8 @@ Failed facial recognition door opening by user:
 
 ```json
 {
+	"deviceId": 3,
   "message": "event",
   "params": [ "DOOR_OPEN_FAILURE", "Someone tried to open the door", "" ]
 }
-```
-
-#### Commands
-
-The server can also send instructions to the raspberry pi:
-
-The following should open the lock:
-
-```json
-{
-  "message": "open",
-  "params": []
-}
-```
-
-The following should lock the lock:
-
-```json
-{
-  "message": "lock",
-  "params": []
-}
-```
-
-
-
-## Notes
-
-To send socket messages to the server from MacOS terminal:
-
-```
-echo "-1" | nc localhost 8081
-```
-
-```
-echo "{
-\"message\" : \"id\",
-\"params\" : [ \"-1\" ]
-}" | nc localhost 8081
 ```

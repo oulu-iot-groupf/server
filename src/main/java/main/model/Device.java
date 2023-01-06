@@ -14,5 +14,6 @@ public class Device {
   private int id;
   private String name;
   private int ownerId;
+  private boolean open;
 
 }

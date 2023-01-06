@@ -1,6 +1,5 @@
 package main.model;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +14,9 @@ import java.util.Date;
 public class Event {
 
   public enum Type {
-	DOOR_OPEN_SUCCESS,
-	DOOR_OPEN_FAILURE,
-	LOCK_ONLINE,
+    DOOR_OPEN_SUCCESS,
+    DOOR_OPEN_FAILURE,
+    LOCK_ONLINE,
   }
 
   private Type type;

@@ -16,7 +16,7 @@ public class User {
 
   private String password;
 
-  public User withoutPassword(){
+  public User withoutPassword() {
     return new User(id, username, "");
   }
 

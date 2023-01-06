@@ -7,10 +7,9 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class SocketMessage {
+public class ServerMessage {
 
   private String message;
   private String[] params;
-
 
 }

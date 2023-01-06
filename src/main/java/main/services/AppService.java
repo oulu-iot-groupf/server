@@ -17,45 +17,47 @@ public class AppService {
   @Autowired
   private AuthService authService;
 
-  @Autowired
-  private LockService socketService;
-
   public List<Device> getDevices(int userId) {
-	return Database.devices.stream().filter(d -> d.getOwnerId() == userId).collect(Collectors.toList());
+    return Database.devices.stream().filter(d -> d.getOwnerId() == userId).collect(Collectors.toList());
   }
 
   public List<Device> getUnconfiguredDevices() {
-	return Database.unconfiguredDevices();
+    return Database.unconfiguredDevices();
   }
 
   public boolean ownDevice(int ownerId, int deviceId) {
-	Device device = Database.getDeviceById(deviceId);
-	if(device != null) {
-	  device.setOwnerId(ownerId);
-	  return true;
-	} else {
-	  return false;
-	}
+    Device device = Database.getDeviceById(deviceId);
+    if (device != null) {
+      device.setOwnerId(ownerId);
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public List<Event> getEvents(int deviceId) {
-	return Database.events.stream().filter(e -> e.getDeviceId() == deviceId).collect(Collectors.toList());
+    return Database.events.stream().filter(e -> e.getDeviceId() == deviceId).collect(Collectors.toList());
   }
 
-  public User signIn(String username, String password){
-	return authService.loginUserByUsernameAndPassword(username, password);
+  public User signIn(String username, String password) {
+    return authService.loginUserByUsernameAndPassword(username, password);
   }
 
   public boolean open(int deviceId) {
-	return socketService.open(deviceId);
+    Database.getDeviceById(deviceId).setOpen(true);
+    return true;
   }
 
   public boolean lock(int deviceId) {
-	return socketService.lock(deviceId);
+    Database.getDeviceById(deviceId).setOpen(false);
+    return true;
   }
 
-  public User getById(int userId) {
-	return Database.users.stream().filter(u -> u.getId() == userId).findFirst().orElse(null);
+  public User getUserById(int userId) {
+    return Database.users.stream().filter(u -> u.getId() == userId).findFirst().orElse(null);
+  }
+
+  public Device getDeviceById(int userId) {
+    return Database.devices.stream().filter(u -> u.getId() == userId).findFirst().orElse(null);
   }
 }
-
