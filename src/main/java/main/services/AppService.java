@@ -35,8 +35,9 @@ public class AppService {
     }
   }
 
-  public List<Event> getEvents(int deviceId) {
-    return Database.events.stream().filter(e -> e.getDeviceId() == deviceId).collect(Collectors.toList());
+  public List<Event> getEvents(int userId) {
+    return Database.events.stream().filter(e -> getDeviceById(e.getDeviceId()).getOwnerId() == userId)
+        .collect(Collectors.toList());
   }
 
   public User signIn(String username, String password) {
